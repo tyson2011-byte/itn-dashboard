@@ -12,596 +12,421 @@
   --bg:#0c0e13;--bg2:#111318;--bg3:#181c24;--bg4:#1e2230;
   --border:rgba(255,255,255,0.06);--border2:rgba(255,255,255,0.11);
   --text:#e6e8f0;--muted:#5a6070;--muted2:#8890a0;
-  --hindi:#f5855b;--hindi-dim:rgba(245,133,91,0.12);--hindi-border:rgba(245,133,91,0.25);
-  --bengali:#5b8af5;--bengali-dim:rgba(91,138,245,0.12);--bengali-border:rgba(91,138,245,0.25);
+  --hindi:#f5855b;--hindi-dim:rgba(245,133,91,0.12);--hindi-border:rgba(245,133,91,0.3);
+  --bengali:#5b8af5;--bengali-dim:rgba(91,138,245,0.12);--bengali-border:rgba(91,138,245,0.3);
   --green:#3ecf8e;--green-dim:rgba(62,207,142,0.1);
   --yellow:#f5c842;--yellow-dim:rgba(245,200,66,0.1);
   --red:#f55b5b;--purple:#c47af5;
 }
-
 body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;min-height:100vh;overflow-x:hidden}
 body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(91,138,245,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(91,138,245,0.025) 1px,transparent 1px);background-size:48px 48px;pointer-events:none;z-index:0}
-
 .wrap{max-width:1200px;margin:0 auto;padding:0 24px 80px;position:relative;z-index:1}
-
-/* ── HEADER ── */
 header{padding:36px 0 28px;border-bottom:1px solid var(--border);margin-bottom:32px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
 .logo{font-family:'Syne',sans-serif;font-weight:800;font-size:24px;letter-spacing:-0.5px}
-.logo .hi{color:var(--hindi)}
-.logo .bn{color:var(--bengali)}
-.logo .sep{color:var(--muted);margin:0 6px;font-size:18px}
+.logo .hi{color:var(--hindi)}.logo .bn{color:var(--bengali)}.logo .sep{color:var(--muted);margin:0 6px;font-size:18px}
 .subtitle{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);margin-top:4px}
-.last-updated{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);text-align:right}
-.refresh-btn{background:transparent;border:1px solid var(--border2);border-radius:8px;color:var(--muted2);font-family:'DM Sans',sans-serif;font-size:12px;padding:6px 14px;cursor:pointer;transition:all 0.2s;margin-top:6px;display:block}
-.refresh-btn:hover{color:var(--text);border-color:var(--border2)}
-
-/* ── PROJECT TABS ── */
-.proj-tabs{display:flex;gap:8px;margin-bottom:28px}
-.proj-tab{flex:1;padding:14px 20px;border-radius:12px;border:1px solid var(--border2);background:var(--bg2);cursor:pointer;transition:all 0.2s;text-align:left}
+.header-right{text-align:right}
+.last-upd{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);margin-bottom:6px}
+.refresh-btn{background:transparent;border:1px solid var(--border2);border-radius:8px;color:var(--muted2);font-family:'DM Sans',sans-serif;font-size:12px;padding:6px 14px;cursor:pointer;transition:all 0.2s}
+.refresh-btn:hover{color:var(--text);border-color:rgba(255,255,255,0.25)}
+.proj-tabs{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:28px}
+.proj-tab{padding:16px 20px;border-radius:14px;border:1px solid var(--border2);background:var(--bg2);cursor:pointer;transition:all 0.2s;text-align:left}
 .proj-tab:hover{background:var(--bg3)}
 .proj-tab.active.hindi{border-color:var(--hindi-border);background:var(--hindi-dim)}
 .proj-tab.active.bengali{border-color:var(--bengali-border);background:var(--bengali-dim)}
-.proj-tab-label{font-size:11px;font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:6px}
-.proj-tab.hindi .proj-tab-label{color:var(--hindi)}
-.proj-tab.bengali .proj-tab-label{color:var(--bengali)}
-.proj-tab-name{font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:var(--text)}
-.proj-tab-count{font-size:12px;color:var(--muted);margin-top:4px;font-family:'DM Mono',monospace}
-
-/* ── STATUS BANNER ── */
-.status-bar{display:none;align-items:center;gap:10px;background:var(--bg3);border:1px solid var(--border2);border-radius:10px;padding:12px 16px;margin-bottom:24px;font-family:'DM Mono',monospace;font-size:12px;color:var(--muted2)}
-.status-bar.show{display:flex}
-.status-bar.err{border-color:rgba(245,91,91,0.3);color:var(--red)}
-.status-bar.ok{border-color:rgba(62,207,142,0.3);color:var(--green)}
-.spinner{width:13px;height:13px;border:2px solid var(--border2);border-top-color:var(--bengali);border-radius:50%;animation:spin 0.7s linear infinite;flex-shrink:0}
+.pt-label{font-size:10px;font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:5px}
+.proj-tab.hindi .pt-label{color:var(--hindi)}.proj-tab.bengali .pt-label{color:var(--bengali)}
+.pt-name{font-family:'Syne',sans-serif;font-size:19px;font-weight:800}
+.pt-count{font-size:12px;color:var(--muted);margin-top:4px;font-family:'DM Mono',monospace}
+.sbar{display:none;align-items:center;gap:10px;background:var(--bg3);border:1px solid var(--border2);border-radius:10px;padding:11px 16px;margin-bottom:22px;font-family:'DM Mono',monospace;font-size:12px;color:var(--muted2)}
+.sbar.show{display:flex}.sbar.err{border-color:rgba(245,91,91,0.3);color:var(--red)}.sbar.ok{border-color:rgba(62,207,142,0.3);color:var(--green)}
+.spin{width:13px;height:13px;border:2px solid var(--border2);border-top-color:var(--bengali);border-radius:50%;animation:spin 0.7s linear infinite;flex-shrink:0}
 @keyframes spin{to{transform:rotate(360deg)}}
-
-/* ── OVERVIEW CARDS (both projects) ── */
-.overview-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:32px}
-.ov-card{background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:20px 22px;position:relative;overflow:hidden}
-.ov-card.hindi{border-top:2px solid var(--hindi)}
-.ov-card.bengali{border-top:2px solid var(--bengali)}
-.ov-card-title{font-family:'DM Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:14px}
-.ov-card.hindi .ov-card-title{color:var(--hindi)}
-.ov-card.bengali .ov-card-title{color:var(--bengali)}
-.ov-nums{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.ov-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:28px}
+.ov-card{background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:22px}
+.ov-card.hindi{border-top:2px solid var(--hindi)}.ov-card.bengali{border-top:2px solid var(--bengali)}
+.ov-title{font-family:'DM Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:14px}
+.ov-card.hindi .ov-title{color:var(--hindi)}.ov-card.bengali .ov-title{color:var(--bengali)}
+.ov-nums{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:16px}
 .ov-num-label{font-size:11px;color:var(--muted);margin-bottom:4px}
-.ov-num-val{font-family:'Syne',sans-serif;font-size:24px;font-weight:800}
-.ov-progress-wrap{margin-top:14px}
-.ov-progress-label{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-bottom:6px;font-family:'DM Mono',monospace}
-.ov-progress-track{height:6px;background:var(--bg3);border-radius:99px;overflow:hidden}
-.ov-progress-fill{height:100%;border-radius:99px;transition:width 0.8s cubic-bezier(0.16,1,0.3,1)}
-.ov-card.hindi .ov-progress-fill{background:var(--hindi)}
-.ov-card.bengali .ov-progress-fill{background:var(--bengali)}
-
-/* ── METRICS ── */
-.metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:24px}
+.ov-num-val{font-family:'Syne',sans-serif;font-size:26px;font-weight:800}
+.ov-prog-label{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-bottom:6px;font-family:'DM Mono',monospace}
+.ov-prog-track{height:5px;background:var(--bg3);border-radius:99px;overflow:hidden}
+.ov-prog-fill{height:100%;border-radius:99px;transition:width 1s cubic-bezier(0.16,1,0.3,1)}
+.ov-card.hindi .ov-prog-fill{background:var(--hindi)}.ov-card.bengali .ov-prog-fill{background:var(--bengali)}
+.metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:22px}
 .metric{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:16px 18px}
-.metric-label{font-size:11px;color:var(--muted);font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px}
+.metric-label{font-size:10px;color:var(--muted);font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px}
 .metric-val{font-family:'Syne',sans-serif;font-size:28px;font-weight:800}
-
-/* ── SECTION TABS ── */
-.sec-tabs{display:flex;gap:6px;margin-bottom:18px;flex-wrap:wrap}
-.sec-tab{padding:6px 16px;border-radius:99px;font-size:13px;cursor:pointer;border:1px solid var(--border2);color:var(--muted2);background:transparent;font-family:'DM Sans',sans-serif;transition:all 0.18s}
-.sec-tab:hover{color:var(--text)}
-.sec-tab.active{color:#fff;border-color:transparent;font-weight:500}
-.sec-tab.active.hindi{background:var(--hindi)}
-.sec-tab.active.bengali{background:var(--bengali)}
-
-/* ── SECTION PANELS ── */
+.sec-tabs{display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap}
+.stab{padding:6px 16px;border-radius:99px;font-size:13px;cursor:pointer;border:1px solid var(--border2);color:var(--muted2);background:transparent;font-family:'DM Sans',sans-serif;transition:all 0.18s}
+.stab:hover{color:var(--text)}
+.stab.active{color:#fff;border-color:transparent;font-weight:500}
+.stab.active.c-hindi{background:var(--hindi)}.stab.active.c-bengali{background:var(--bengali)}
 .panel{display:none;background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:22px}
 .panel.show{display:block;animation:fadeUp 0.3s ease}
-@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
-.panel-title{font-family:'DM Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);margin-bottom:18px}
-
-/* ── BARS ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.panel-title{font-family:'DM Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);margin-bottom:18px}
 .bar-row{display:flex;align-items:center;gap:10px;margin-bottom:9px}
-.bar-name{font-size:13px;width:165px;flex-shrink:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--text)}
+.bar-name{font-size:13px;width:165px;flex-shrink:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .bar-track{flex:1;background:var(--bg3);border-radius:5px;height:18px;overflow:hidden}
-.bar-fill{height:100%;border-radius:5px;transition:width 0.7s cubic-bezier(0.16,1,0.3,1)}
+.bar-fill{height:100%;border-radius:5px;transition:width 0.8s cubic-bezier(0.16,1,0.3,1)}
 .bar-num{font-family:'DM Mono',monospace;font-size:12px;color:var(--muted2);width:36px;text-align:right;flex-shrink:0}
-.bar-pct{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);width:40px;text-align:right;flex-shrink:0}
-
-/* ── CROSS TABLE ── */
+.bar-pct{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);width:42px;text-align:right;flex-shrink:0}
 .cross-scroll{overflow-x:auto}
 .ctbl{border-collapse:collapse;font-size:12px;min-width:100%}
-.ctbl th{background:var(--bg3);color:var(--muted);font-weight:500;font-family:'DM Mono',monospace;font-size:10px;padding:7px 10px;text-align:center;border-bottom:1px solid var(--border);white-space:nowrap;letter-spacing:0.04em}
+.ctbl th{background:var(--bg3);color:var(--muted);font-weight:500;font-family:'DM Mono',monospace;font-size:10px;padding:7px 10px;text-align:center;border-bottom:1px solid var(--border);white-space:nowrap}
 .ctbl th.lft{text-align:left}
 .ctbl td{padding:6px 10px;text-align:center;border-bottom:1px solid var(--border);color:var(--text)}
 .ctbl td.lft{text-align:left;font-weight:500;white-space:nowrap}
 .ctbl tr:last-child td{font-weight:600;background:var(--bg3);color:var(--muted2)}
 .ctbl tr:hover td{background:rgba(255,255,255,0.015)}
 .hcell{display:inline-block;min-width:30px;padding:2px 7px;border-radius:4px;font-family:'DM Mono',monospace;font-size:11px}
-
-/* ── STATUS ── */
-.status-3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px}
-.s3card{border-radius:11px;padding:15px 16px;border:1px solid}
-.s3card.done{background:var(--green-dim);border-color:rgba(62,207,142,0.2)}
-.s3card.pending{background:var(--yellow-dim);border-color:rgba(245,200,66,0.2)}
-.s3card.other{background:rgba(90,96,112,0.08);border-color:var(--border2)}
+.s3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px}
+.s3c{border-radius:11px;padding:15px 16px;border:1px solid}
+.s3c.done{background:var(--green-dim);border-color:rgba(62,207,142,0.2)}
+.s3c.pending{background:var(--yellow-dim);border-color:rgba(245,200,66,0.2)}
+.s3c.other{background:rgba(90,96,112,0.08);border-color:var(--border2)}
 .s3label{font-size:10px;font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:5px}
-.s3card.done .s3label{color:var(--green)}
-.s3card.pending .s3label{color:var(--yellow)}
-.s3card.other .s3label{color:var(--muted)}
+.s3c.done .s3label{color:var(--green)}.s3c.pending .s3label{color:var(--yellow)}.s3c.other .s3label{color:var(--muted)}
 .s3val{font-family:'Syne',sans-serif;font-size:26px;font-weight:800}
 .s3sub{font-size:11px;margin-top:3px;font-family:'DM Mono',monospace}
-.s3card.done .s3sub{color:var(--green)}
-.s3card.pending .s3sub{color:var(--yellow)}
-.s3card.other .s3sub{color:var(--muted)}
-
-/* ── CHART ── */
-.chart-legend{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:14px}
+.s3c.done .s3sub{color:var(--green)}.s3c.pending .s3sub{color:var(--yellow)}.s3c.other .s3sub{color:var(--muted)}
+.cl{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
 .cl-item{display:flex;align-items:center;gap:5px;font-size:12px;color:var(--muted2)}
 .cl-dot{width:9px;height:9px;border-radius:2px;flex-shrink:0}
-
-/* ── LOADING STATE ── */
-.skeleton{background:linear-gradient(90deg,var(--bg3) 25%,var(--bg4) 50%,var(--bg3) 75%);background-size:200% 100%;animation:shimmer 1.4s infinite;border-radius:8px;height:20px;margin-bottom:8px}
-@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
-
-/* ── EMPTY STATE ── */
-.empty{text-align:center;padding:40px 20px;color:var(--muted);font-family:'DM Mono',monospace;font-size:13px}
-
-/* ── FOOTER ── */
+.empty{text-align:center;padding:30px;color:var(--muted);font-family:'DM Mono',monospace;font-size:13px}
 footer{margin-top:48px;padding-top:18px;border-top:1px solid var(--border);text-align:center;font-family:'DM Mono',monospace;font-size:11px;color:var(--muted)}
-
-@media(max-width:700px){
-  .overview-row{grid-template-columns:1fr}
+@media(max-width:680px){
+  .ov-row,.proj-tabs{grid-template-columns:1fr}
   .metrics{grid-template-columns:repeat(2,1fr)}
-  .status-3{grid-template-columns:1fr}
-  .proj-tabs{flex-direction:column}
-  .bar-name{width:120px}
+  .s3{grid-template-columns:1fr}
+  .bar-name{width:110px}
 }
 </style>
 </head>
 <body>
 <div class="wrap">
-
   <header>
     <div>
-      <div class="logo">
-        <span class="hi">Hindi</span>
-        <span class="sep">&</span>
-        <span class="bn">Bengali</span>
-        ITN Tracker
-      </div>
-      <div class="subtitle">// live progress dashboard · auto-reads all user sheets</div>
+      <div class="logo"><span class="hi">Hindi</span><span class="sep">&</span><span class="bn">Bengali</span> ITN Tracker</div>
+      <div class="subtitle">// live progress dashboard · reads all user sheet tabs</div>
     </div>
-    <div style="text-align:right">
-      <div class="last-updated" id="last-updated">Not loaded yet</div>
-      <button class="refresh-btn" onclick="loadAll()">↻ Refresh data</button>
+    <div class="header-right">
+      <div class="last-upd" id="last-upd">Loading...</div>
+      <button class="refresh-btn" onclick="loadAll()">↻ Refresh</button>
     </div>
   </header>
 
-  <!-- PROJECT SWITCHER -->
   <div class="proj-tabs">
-    <div class="proj-tab hindi active" onclick="switchProject('hindi',this)">
-      <div class="proj-tab-label">Project 01</div>
-      <div class="proj-tab-name">Hindi Collection</div>
-      <div class="proj-tab-count" id="hindi-tab-count">Loading...</div>
+    <div class="proj-tab hindi active" onclick="switchProj('hindi',this)">
+      <div class="pt-label">Project 01 · Hindi</div>
+      <div class="pt-name">Hindi Collection</div>
+      <div class="pt-count" id="hindi-count">Loading...</div>
     </div>
-    <div class="proj-tab bengali" onclick="switchProject('bengali',this)">
-      <div class="proj-tab-label">Project 02</div>
-      <div class="proj-tab-name">Bengali Collection</div>
-      <div class="proj-tab-count" id="bengali-tab-count">Loading...</div>
+    <div class="proj-tab bengali" onclick="switchProj('bengali',this)">
+      <div class="pt-label">Project 02 · Bengali</div>
+      <div class="pt-name">Bengali Collection</div>
+      <div class="pt-count" id="bengali-count">Loading...</div>
     </div>
   </div>
 
-  <!-- STATUS BAR -->
-  <div class="status-bar" id="status-bar">
-    <div class="spinner" id="spinner"></div>
-    <span id="status-text">Loading...</span>
-  </div>
+  <div class="sbar" id="sbar"><div class="spin" id="spin"></div><span id="sbar-txt">Loading...</span></div>
 
-  <!-- OVERVIEW: BOTH PROJECTS SIDE BY SIDE -->
-  <div class="overview-row" id="overview-row">
-    <div class="ov-card hindi" id="ov-hindi">
-      <div class="ov-card-title">Hindi · loading...</div>
+  <div class="ov-row">
+    <div class="ov-card hindi">
+      <div class="ov-title">Hindi Collection</div>
       <div class="ov-nums">
         <div><div class="ov-num-label">Utterances</div><div class="ov-num-val" id="h-total">—</div></div>
         <div><div class="ov-num-label">Users</div><div class="ov-num-val" id="h-users">—</div></div>
         <div><div class="ov-num-label">Done</div><div class="ov-num-val" id="h-done" style="color:var(--green)">—</div></div>
       </div>
-      <div class="ov-progress-wrap">
-        <div class="ov-progress-label"><span>Completion</span><span id="h-pct">0%</span></div>
-        <div class="ov-progress-track"><div class="ov-progress-fill" id="h-bar" style="width:0%"></div></div>
-      </div>
+      <div class="ov-prog-label"><span>Completion</span><span id="h-pct">0%</span></div>
+      <div class="ov-prog-track"><div class="ov-prog-fill" id="h-bar" style="width:0%"></div></div>
     </div>
-    <div class="ov-card bengali" id="ov-bengali">
-      <div class="ov-card-title">Bengali · loading...</div>
+    <div class="ov-card bengali">
+      <div class="ov-title">Bengali Collection</div>
       <div class="ov-nums">
         <div><div class="ov-num-label">Utterances</div><div class="ov-num-val" id="b-total">—</div></div>
         <div><div class="ov-num-label">Users</div><div class="ov-num-val" id="b-users">—</div></div>
         <div><div class="ov-num-label">Done</div><div class="ov-num-val" id="b-done" style="color:var(--green)">—</div></div>
       </div>
-      <div class="ov-progress-wrap">
-        <div class="ov-progress-label"><span>Completion</span><span id="b-pct">0%</span></div>
-        <div class="ov-progress-track"><div class="ov-progress-fill" id="b-bar" style="width:0%"></div></div>
-      </div>
+      <div class="ov-prog-label"><span>Completion</span><span id="b-pct">0%</span></div>
+      <div class="ov-prog-track"><div class="ov-prog-fill" id="b-bar" style="width:0%"></div></div>
     </div>
   </div>
 
-  <!-- DETAIL SECTION FOR ACTIVE PROJECT -->
-  <div id="detail-section">
-    <div class="metrics" id="metrics-row"></div>
-    <div class="sec-tabs" id="sec-tabs">
-      <button class="sec-tab active" onclick="switchTab('user',this)">By user</button>
-      <button class="sec-tab" onclick="switchTab('cat',this)">By category</button>
-      <button class="sec-tab" onclick="switchTab('cross',this)">User × category</button>
-      <button class="sec-tab" onclick="switchTab('chart',this)">Chart</button>
-      <button class="sec-tab" onclick="switchTab('status',this)">Status</button>
-    </div>
-    <div class="panel show" id="tab-user"><div class="panel-title">Utterances per user</div><div id="user-bars"></div></div>
-    <div class="panel" id="tab-cat"><div class="panel-title">Utterances per category</div><div id="cat-bars"></div></div>
-    <div class="panel" id="tab-cross"><div class="panel-title">User × category breakdown</div><div class="cross-scroll"><table class="ctbl" id="cross-tbl"></table></div></div>
-    <div class="panel" id="tab-chart">
-      <div class="panel-title">Contribution chart</div>
-      <div class="chart-legend" id="chart-legend"></div>
-      <div style="position:relative;width:100%" id="chart-wrap"><canvas id="main-chart"></canvas></div>
-    </div>
-    <div class="panel" id="tab-status">
-      <div class="panel-title">Status overview</div>
-      <div class="status-3" id="status-3"></div>
-      <div id="status-person-bars"></div>
-    </div>
+  <div class="metrics" id="metrics"></div>
+  <div class="sec-tabs">
+    <button class="stab active" onclick="switchTab('user',this)">By user</button>
+    <button class="stab" onclick="switchTab('cat',this)">By category</button>
+    <button class="stab" onclick="switchTab('cross',this)">User × category</button>
+    <button class="stab" onclick="switchTab('chart',this)">Chart</button>
+    <button class="stab" onclick="switchTab('status',this)">Status</button>
+  </div>
+  <div class="panel show" id="tab-user"><div class="panel-title">Utterances per user</div><div id="user-bars"></div></div>
+  <div class="panel" id="tab-cat"><div class="panel-title">Utterances per category</div><div id="cat-bars"></div></div>
+  <div class="panel" id="tab-cross"><div class="panel-title">User × category breakdown</div><div class="cross-scroll"><table class="ctbl" id="ctbl"></table></div></div>
+  <div class="panel" id="tab-chart">
+    <div class="panel-title">Contribution chart</div>
+    <div class="cl" id="cl"></div>
+    <div style="position:relative;width:100%" id="chart-wrap"><canvas id="main-chart"></canvas></div>
+  </div>
+  <div class="panel" id="tab-status">
+    <div class="panel-title">Status overview</div>
+    <div class="s3" id="s3"></div>
+    <div id="status-bars"></div>
   </div>
 
-  <footer>ITN Progress Dashboard · Hindi & Bengali · auto-reads all user sheet tabs</footer>
+  <footer>ITN Progress Dashboard · Hindi & Bengali · auto-refreshes every 5 min</footer>
 </div>
-
 <script>
-// ── CONFIG ──
-const PROJECTS = {
-  hindi: {
-    id: '13Jg6Dg8Gb-hJElOKOjd_1_eEuskRIk6mNmS-VakQSSY',
-    label: 'Hindi Collection',
-    color: '#f5855b',
-    accentDim: 'rgba(245,133,91,0.15)',
+const STATIC={
+  hindi:{
+    persons:[['Umesh',200],['Ashok Lalwani',115],['A Mubeena Parveen',105],['Ratima Agrahari',100],['Sudeep Acharya',100],['Reena Bisht',97],['Vijay Lakshmi',80],['Shraddha',74],['Jahnvi Punjabi',71],['AEJU DADA',69],['Apurva S',65],['Ratima Agrahari 2',64],['Razeena Kader',57]],
+    cats:[['Numbers',140],['Phone Numbers',130],['Currencies',128],['Serial',123],['Dates',123],['Address',119],['Times',111],['Units',111],['URLs',109],['Social',103]],
+    cross:{"Vijay Lakshmi":{"Numbers":10,"Serial":7,"Phone Numbers":10,"Currencies":8,"Dates":10,"Times":10,"Units":10,"URLs":10,"Address":5},"Umesh":{"Numbers":20,"Serial":20,"Phone Numbers":20,"Currencies":20,"Dates":20,"Times":20,"Units":20,"URLs":20,"Social":20,"Address":20},"A Mubeena Parveen":{"Numbers":15,"Serial":10,"Phone Numbers":10,"Currencies":10,"Dates":10,"Times":10,"Units":10,"URLs":10,"Social":10,"Address":10},"Ashok Lalwani":{"Numbers":10,"Serial":10,"Phone Numbers":10,"Currencies":10,"Dates":10,"Times":10,"Units":10,"URLs":10,"Social":10,"Address":25},"Apurva S":{"Numbers":10,"Serial":5,"Phone Numbers":10,"Currencies":10,"Dates":5,"Times":5,"Units":5,"URLs":5,"Social":5,"Address":5},"Jahnvi Punjabi":{"Numbers":10,"Serial":5,"Phone Numbers":6,"Currencies":10,"Dates":10,"Times":6,"Units":6,"URLs":4,"Social":9,"Address":5},"Shraddha":{"Numbers":10,"Serial":10,"Phone Numbers":10,"Currencies":11,"Dates":9,"Times":5,"Units":5,"URLs":5,"Social":5,"Address":4},"Ratima Agrahari":{"Numbers":10,"Serial":10,"Phone Numbers":10,"Currencies":10,"Dates":10,"Times":10,"Units":10,"URLs":10,"Social":10,"Address":10},"AEJU DADA":{"Numbers":10,"Serial":10,"Phone Numbers":10,"Currencies":9,"Dates":5,"Times":5,"Units":5,"URLs":5,"Social":5,"Address":5},"Razeena Kader":{"Numbers":5,"Serial":6,"Phone Numbers":6,"Currencies":5,"Dates":10,"Times":5,"Units":5,"URLs":5,"Social":5,"Address":5},"Reena Bisht":{"Numbers":10,"Serial":10,"Phone Numbers":9,"Currencies":10,"Dates":9,"Times":10,"Units":10,"URLs":10,"Social":9,"Address":10},"Ratima Agrahari 2":{"Numbers":10,"Serial":10,"Phone Numbers":9,"Currencies":5,"Dates":5,"Times":5,"Units":5,"URLs":5,"Social":5,"Address":5},"Sudeep Acharya":{"Numbers":10,"Serial":10,"Phone Numbers":10,"Currencies":10,"Dates":10,"Times":10,"Units":10,"URLs":10,"Social":10,"Address":10}},
+    done:0,pending:0,other:1197,statusByPerson:{}
   },
-  bengali: {
-    id: '1smZPZGrkab1qOEJryQQ3DXYx7pCy74X7_Kz67qZYnKY',
-    label: 'Bengali Collection',
-    color: '#5b8af5',
-    accentDim: 'rgba(91,138,245,0.15)',
+  bengali:{
+    persons:[['Sanghamitra',302],['Sudeep',131],['Anandita',100],['Riya',10]],
+    cats:[['Phone Numbers',71],['Numbers',70],['Serial',70],['Address',69],['Social',53],['URLs',50],['Currencies',40],['Dates',40],['Times',40],['Units',40]],
+    cross:{"Riya":{"Numbers":10},"Anandita":{"Numbers":10,"Serial":10,"Phone Numbers":10,"Currencies":10,"Dates":10,"Times":10,"Units":10,"URLs":10,"Social":10,"Address":10},"Sudeep":{"Numbers":10,"Serial":20,"Phone Numbers":21,"Currencies":10,"Dates":10,"Times":10,"Units":10,"URLs":20,"Social":10,"Address":10},"Sanghamitra":{"Numbers":40,"Serial":40,"Phone Numbers":40,"Currencies":20,"Dates":20,"Times":20,"Units":20,"URLs":20,"Social":33,"Address":49}},
+    done:0,pending:0,other:543,statusByPerson:{}
   }
 };
 
-const SKIP = new Set(['sample','blank','blank2','blank 2','users','combined','pivot summary','sheet1','sheet2','sheet3','checklist','instruction','instructions','readme']);
-const PALETTE = ['#f5855b','#5b8af5','#3ecf8e','#c47af5','#f5c842','#5be8f5','#f55b8e','#8ef55b','#f5a65b','#5bf5c4','#a65bf5','#f55b5b','#5b8af5','#c4f55b'];
+const CFG={
+  hindi:{id:'13Jg6Dg8Gb-hJElOKOjd_1_eEuskRIk6mNmS-VakQSSY',color:'#f5855b',rgb:'245,133,91',
+    sheets:['Vijay Lakshmi','Umesh','A Mubeena Parveen','Ashok Lalwani','Apurva S','Jahnvi Punjabi','Shraddha ','Ratima Agrahari ','AEJU DADA','Razeena Kader','Reena Bisht','Ratima Agrahari 2','Sudeep Acharya']},
+  bengali:{id:'1smZPZGrkab1qOEJryQQ3DXYx7pCy74X7_Kz67qZYnKY',color:'#5b8af5',rgb:'91,138,245',
+    sheets:['Riya','Anandita','Sudeep','Sharmistha','Sanghamitra']}
+};
 
-let DATA = { hindi: null, bengali: null };
-let activeProject = 'hindi';
-let chartInst = null;
+const SKIP=new Set(['sample','blank','blank2','blank 2','users','combined','pivot summary','checklist','instructions','readme']);
+const PAL=['#f5855b','#5b8af5','#3ecf8e','#c47af5','#f5c842','#5be8f5','#f55b8e','#8ef55b','#f5a65b','#5bf5c4','#a65bf5','#f55b5b','#c4f55b','#5bf5a6'];
 
-// ── FETCH WITH PROXY FALLBACK ──
-async function fetchCSV(id, gid) {
-  const target = `https://docs.google.com/spreadsheets/d/${id}/export?format=csv${gid ? '&gid='+gid : ''}`;
-  const proxies = [
-    target,
-    `https://corsproxy.io/?${encodeURIComponent(target)}`,
-    `https://api.allorigins.win/raw?url=${encodeURIComponent(target)}`,
-  ];
-  for (const url of proxies) {
-    try {
-      const res = await fetch(url);
-      if (res.ok) { const txt = await res.text(); if (txt.length > 10) return parseCSV(txt); }
-    } catch(e) {}
-  }
-  throw new Error('Could not fetch sheet tab.');
+let DATA={hindi:JSON.parse(JSON.stringify(STATIC.hindi)),bengali:JSON.parse(JSON.stringify(STATIC.bengali))};
+let AP='hindi',CI=null;
+
+async function tryFetch(url){
+  const proxies=[url,`https://corsproxy.io/?${encodeURIComponent(url)}`,`https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`];
+  for(const p of proxies){try{const r=await fetch(p);if(r.ok){const t=await r.text();if(t.length>20)return t;}}catch(e){}}
+  return null;
 }
 
-async function fetchSheetMeta(id) {
-  const target = `https://docs.google.com/spreadsheets/d/${id}/edit`;
-  const proxies = [
-    target,
-    `https://corsproxy.io/?${encodeURIComponent(target)}`,
-    `https://api.allorigins.win/raw?url=${encodeURIComponent(target)}`,
-  ];
-  for (const url of proxies) {
-    try {
-      const res = await fetch(url);
-      if (!res.ok) continue;
-      const html = await res.text();
-      const found = [];
-      const re = /"(\d{5,})"[^}]{0,80}"name":"([^"]+)"/g;
-      let m;
-      while ((m = re.exec(html)) !== null) {
-        const name = m[2];
-        if (!SKIP.has(name.toLowerCase().trim())) found.push({ gid: m[1], name });
-      }
-      if (found.length) return found;
-    } catch(e) {}
-  }
-  return [];
-}
-
-function parseCSV(text) {
-  return text.trim().split('\n').map(line => {
-    const cells = []; let cur = '', inQ = false;
-    for (let i = 0; i < line.length; i++) {
-      const c = line[i];
-      if (c === '"') inQ = !inQ;
-      else if (c === ',' && !inQ) { cells.push(cur.trim()); cur = ''; }
-      else cur += c;
-    }
-    cells.push(cur.trim()); return cells;
+function parseCSV(t){
+  return t.trim().split('\n').map(line=>{
+    const c=[]; let cur='',q=false;
+    for(const ch of line){if(ch==='"')q=!q;else if(ch===','&&!q){c.push(cur.trim());cur='';}else cur+=ch;}
+    c.push(cur.trim()); return c;
   });
 }
 
-function detectCol(headers, kws) {
-  for (const kw of kws) { const i = headers.findIndex(h => h.includes(kw)); if (i >= 0) return i; }
-  return -1;
-}
+function dc(h,kws){for(const k of kws){const i=h.findIndex(x=>x.includes(k));if(i>=0)return i;}return -1;}
 
-// ── PARSE SHEET ROWS INTO STANDARD FORMAT ──
-function parseRows(rows, sheetName) {
-  const out = [];
-  if (rows.length < 2) return out;
-  const headers = rows[0].map(h => h.toLowerCase().trim());
-  const cPerson = detectCol(headers, ['person','name','user']);
-  const cCat    = detectCol(headers, ['itn','category','cat']);
-  const cUtt    = detectCol(headers, ['utterance','english']);
-  const cWC     = detectCol(headers, ['word']);
-  const cStatus = detectCol(headers, ['status']);
-  for (let r = 1; r < rows.length; r++) {
-    const row = rows[r];
-    const utt = (row[cUtt >= 0 ? cUtt : 3] || '').trim();
-    if (!utt || utt === '0') continue;
-    const cat = cCat >= 0 ? (row[cCat] || 'Unknown').trim() : 'Unknown';
-    if (!cat || cat === '0') continue;
-    out.push({
-      person: sheetName || (cPerson >= 0 ? (row[cPerson] || 'Unknown').trim() : 'Unknown'),
-      cat, utt,
-      wc:     cWC     >= 0 ? (parseInt(row[cWC]) || 0) : 0,
-      status: cStatus >= 0 ? (row[cStatus] || '').trim() : '',
-    });
+function parseRows(rows,name){
+  if(!rows||rows.length<2)return[];
+  const h=rows[0].map(x=>x.toLowerCase().trim());
+  const ci=dc(h,['itn','category']),ui=dc(h,['utterance']),si=dc(h,['status']),pi=dc(h,['person','name','user']);
+  const out=[];
+  for(let r=1;r<rows.length;r++){
+    const row=rows[r];
+    const utt=(row[ui>=0?ui:3]||'').trim();
+    if(!utt||utt==='0'||utt.toLowerCase()==='nan')continue;
+    const cat=(row[ci>=0?ci:1]||'').trim();
+    if(!cat||cat.toLowerCase()==='itn category')continue;
+    out.push({person:name||(pi>=0?(row[pi]||'Unknown').trim():'Unknown'),cat,
+      status:si>=0?(row[si]||'').trim().toLowerCase():''});
   }
   return out;
 }
 
-// ── CRUNCH DATA ──
-function crunch(rows) {
-  const personMap = {}, catMap = {}, crossMap = {}, statusByPerson = {};
-  let done = 0, pending = 0, other = 0;
-  rows.forEach(r => {
-    personMap[r.person] = (personMap[r.person] || 0) + 1;
-    catMap[r.cat]       = (catMap[r.cat]       || 0) + 1;
-    if (!crossMap[r.person]) crossMap[r.person] = {};
-    crossMap[r.person][r.cat] = (crossMap[r.person][r.cat] || 0) + 1;
-    if (!statusByPerson[r.person]) statusByPerson[r.person] = { done:0, pending:0, other:0, total:0 };
-    const s = r.status.toLowerCase();
-    statusByPerson[r.person].total++;
-    if (s === 'done') { done++; statusByPerson[r.person].done++; }
-    else if (s === 'pending') { pending++; statusByPerson[r.person].pending++; }
-    else { other++; statusByPerson[r.person].other++; }
+function crunch(rows){
+  const pm={},cm={},xm={},sp={};
+  let done=0,pending=0,other=0;
+  rows.forEach(r=>{
+    pm[r.person]=(pm[r.person]||0)+1;
+    cm[r.cat]=(cm[r.cat]||0)+1;
+    if(!xm[r.person])xm[r.person]={};
+    xm[r.person][r.cat]=(xm[r.person][r.cat]||0)+1;
+    if(!sp[r.person])sp[r.person]={done:0,pending:0,other:0,total:0};
+    sp[r.person].total++;
+    if(r.status==='done'){done++;sp[r.person].done++;}
+    else if(r.status==='pending'){pending++;sp[r.person].pending++;}
+    else{other++;sp[r.person].other++;}
   });
-  const persons  = Object.entries(personMap).sort((a,b) => b[1]-a[1]);
-  const cats     = Object.entries(catMap).sort((a,b) => b[1]-a[1]);
-  return { rows, persons, cats, catNames: cats.map(c=>c[0]), crossMap, statusByPerson, done, pending, other };
+  return{rows,done,pending,other,statusByPerson:sp,cross:xm,
+    persons:Object.entries(pm).sort((a,b)=>b[1]-a[1]),
+    cats:Object.entries(cm).sort((a,b)=>b[1]-a[1])};
 }
 
-// ── LOAD ALL PROJECTS ──
-async function loadAll() {
-  setStatus('Fetching Hindi & Bengali sheets...', 'info');
-  document.getElementById('last-updated').textContent = 'Loading...';
+async function getGids(id){
+  const html=await tryFetch(`https://docs.google.com/spreadsheets/d/${id}/edit`);
+  if(!html)return[];
+  const found=[],re=/"(\d{5,})"[^}]{0,100}"name":"([^"]+)"/g;let m;
+  while((m=re.exec(html))!==null){if(!SKIP.has(m[2].toLowerCase().trim()))found.push({gid:m[1],name:m[2]});}
+  return found;
+}
 
-  await Promise.all([
-    loadProject('hindi'),
-    loadProject('bengali'),
-  ]);
+async function loadProject(key){
+  const cfg=CFG[key];
+  const allRows=[];
+  try{
+    // 1. Try auto-discover all sheet tabs
+    const gids=await getGids(cfg.id);
+    if(gids.length>0){
+      for(const sh of gids){
+        const txt=await tryFetch(`https://docs.google.com/spreadsheets/d/${cfg.id}/export?format=csv&gid=${sh.gid}`);
+        if(txt)allRows.push(...parseRows(parseCSV(txt),sh.name));
+      }
+    }
+    // 2. If that got nothing, try first sheet (might be the COMBINED sheet)
+    if(allRows.length===0){
+      const txt=await tryFetch(`https://docs.google.com/spreadsheets/d/${cfg.id}/export?format=csv`);
+      if(txt)allRows.push(...parseRows(parseCSV(txt),null));
+    }
+  }catch(e){}
 
-  const now = new Date();
-  document.getElementById('last-updated').textContent =
-    `Last updated: ${now.toLocaleDateString()} ${now.toLocaleTimeString()}`;
-  hideStatus();
+  const countEl=document.getElementById(key==='hindi'?'hindi-count':'bengali-count');
+  if(allRows.length>0){
+    DATA[key]=crunch(allRows);
+    const tot=DATA[key].rows.length;
+    countEl.textContent=`${tot} utterances · ${DATA[key].persons.length} users · live ✓`;
+  } else {
+    // Keep static fallback
+    DATA[key]=JSON.parse(JSON.stringify(STATIC[key]));
+    const tot=DATA[key].persons.reduce((s,p)=>s+p[1],0);
+    countEl.textContent=`${tot} utterances · ${DATA[key].persons.length} users · cached`;
+  }
+}
+
+async function loadAll(){
+  setSbar('Fetching data from Google Sheets...','info');
+  await Promise.all([loadProject('hindi'),loadProject('bengali')]);
+  hideBar();
+  const now=new Date();
+  document.getElementById('last-upd').textContent=`Updated: ${now.toLocaleDateString()} ${now.toLocaleTimeString()}`;
   renderOverview();
-  renderDetail(activeProject);
+  renderDetail(AP);
 }
 
-async function loadProject(key) {
-  const proj = PROJECTS[key];
-  try {
-    const sheets = await fetchSheetMeta(proj.id);
-    const allRows = [];
-    if (sheets.length > 0) {
-      for (const sh of sheets) {
-        try {
-          const rows = await fetchCSV(proj.id, sh.gid);
-          allRows.push(...parseRows(rows, sh.name));
-        } catch(e) {}
-      }
-    } else {
-      // fallback: try first sheet
-      try {
-        const rows = await fetchCSV(proj.id, null);
-        allRows.push(...parseRows(rows, null));
-      } catch(e) {}
-    }
-    DATA[key] = crunch(allRows);
-    const c = DATA[key];
-    document.getElementById(key === 'hindi' ? 'hindi-tab-count' : 'bengali-tab-count').textContent =
-      `${c.rows.length} utterances · ${c.persons.length} users`;
-  } catch(e) {
-    DATA[key] = null;
-    document.getElementById(key === 'hindi' ? 'hindi-tab-count' : 'bengali-tab-count').textContent = 'Failed to load';
-  }
-}
-
-// ── OVERVIEW CARDS ──
-function renderOverview() {
-  ['hindi','bengali'].forEach(key => {
-    const d = DATA[key];
-    const prefix = key === 'hindi' ? 'h' : 'b';
-    if (!d) {
-      document.getElementById(`${prefix}-total`).textContent = 'Error';
-      return;
-    }
-    const donePct = d.rows.length ? Math.round((d.done / d.rows.length) * 100) : 0;
-    document.getElementById(`${prefix}-total`).textContent = d.rows.length;
-    document.getElementById(`${prefix}-users`).textContent = d.persons.length;
-    document.getElementById(`${prefix}-done`).textContent  = d.done;
-    document.getElementById(`${prefix}-pct`).textContent   = donePct + '%';
-    document.getElementById(`${prefix}-bar`).style.width   = donePct + '%';
-    document.getElementById(`ov-${key}`).querySelector('.ov-card-title').textContent =
-      `${PROJECTS[key].label} · ${d.persons.length} users`;
+function renderOverview(){
+  ['hindi','bengali'].forEach(key=>{
+    const d=DATA[key],px=key==='hindi'?'h':'b';
+    const total=d.rows?d.rows.length:d.persons.reduce((s,p)=>s+p[1],0);
+    const pct=total?Math.round(((d.done||0)/total)*100):0;
+    document.getElementById(`${px}-total`).textContent=total;
+    document.getElementById(`${px}-users`).textContent=d.persons.length;
+    document.getElementById(`${px}-done`).textContent=d.done||0;
+    document.getElementById(`${px}-pct`).textContent=pct+'%';
+    setTimeout(()=>{document.getElementById(`${px}-bar`).style.width=pct+'%';},100);
   });
 }
 
-// ── DETAIL SECTION ──
-function renderDetail(key) {
-  const d = DATA[key];
-  const color = PROJECTS[key].color;
-
-  // update tab active color class
-  document.querySelectorAll('.sec-tab').forEach(t => {
-    t.classList.remove('hindi','bengali');
-    if (t.classList.contains('active')) t.classList.add(key);
-  });
-
-  if (!d || d.rows.length === 0) {
-    document.getElementById('metrics-row').innerHTML = '<div class="empty">No data loaded.</div>';
-    return;
-  }
-
-  const avg = (d.rows.length / d.persons.length).toFixed(1);
-  document.getElementById('metrics-row').innerHTML = `
-    <div class="metric"><div class="metric-label">Total utterances</div><div class="metric-val" style="color:${color}">${d.rows.length}</div></div>
-    <div class="metric"><div class="metric-label">Users</div><div class="metric-val" style="color:${color}">${d.persons.length}</div></div>
-    <div class="metric"><div class="metric-label">Categories</div><div class="metric-val" style="color:${color}">${d.cats.length}</div></div>
-    <div class="metric"><div class="metric-label">Avg / user</div><div class="metric-val" style="color:${color}">${avg}</div></div>`;
-
-  renderBars('user-bars', d.persons, d.rows.length, PALETTE);
-  renderBars('cat-bars', d.cats, d.rows.length, color);
-  renderCross(d, color);
+function renderDetail(key){
+  const d=DATA[key],c=CFG[key].color,cr=CFG[key].rgb;
+  const total=d.rows?d.rows.length:d.persons.reduce((s,p)=>s+p[1],0);
+  const avg=(total/d.persons.length).toFixed(1);
+  document.querySelectorAll('.stab').forEach(t=>{t.classList.remove('c-hindi','c-bengali');if(t.classList.contains('active'))t.classList.add('c-'+key);});
+  document.getElementById('metrics').innerHTML=`
+    <div class="metric"><div class="metric-label">Total utterances</div><div class="metric-val" style="color:${c}">${total}</div></div>
+    <div class="metric"><div class="metric-label">Users</div><div class="metric-val" style="color:${c}">${d.persons.length}</div></div>
+    <div class="metric"><div class="metric-label">Categories</div><div class="metric-val" style="color:${c}">${d.cats.length}</div></div>
+    <div class="metric"><div class="metric-label">Avg / user</div><div class="metric-val" style="color:${c}">${avg}</div></div>`;
+  renderBars('user-bars',d.persons,total,PAL);
+  renderBars('cat-bars',d.cats,total,c);
+  renderCross(d,cr);
   renderChart(d);
-  renderStatus(d, key);
-  switchTab('user', document.querySelector('.sec-tab.active'));
+  renderStatus(d,key);
 }
 
-function renderBars(containerId, items, total, colors) {
-  const el = document.getElementById(containerId);
-  if (!items.length) { el.innerHTML = '<div class="empty">No data</div>'; return; }
-  const max = items[0][1];
-  el.innerHTML = items.map(([name, count], i) => {
-    const pct = Math.round((count / max) * 100);
-    const tpct = ((count / total) * 100).toFixed(1);
-    const c = Array.isArray(colors) ? colors[i % colors.length] : colors;
-    return `<div class="bar-row">
-      <div class="bar-name" title="${name}">${name}</div>
-      <div class="bar-track"><div class="bar-fill" style="width:${pct}%;background:${c}"></div></div>
-      <div class="bar-num">${count}</div>
-      <div class="bar-pct">${tpct}%</div>
-    </div>`;
+function renderBars(id,items,total,colors){
+  const el=document.getElementById(id);
+  if(!items.length){el.innerHTML='<div class="empty">No data</div>';return;}
+  const max=items[0][1];
+  el.innerHTML=items.map(([name,count],i)=>{
+    const pct=Math.round((count/max)*100),tpct=total?((count/total)*100).toFixed(1):'0';
+    const col=Array.isArray(colors)?colors[i%colors.length]:colors;
+    return `<div class="bar-row"><div class="bar-name" title="${name}">${name}</div>
+      <div class="bar-track"><div class="bar-fill" style="width:0%;background:${col}" data-w="${pct}"></div></div>
+      <div class="bar-num">${count}</div><div class="bar-pct">${tpct}%</div></div>`;
   }).join('');
+  setTimeout(()=>{el.querySelectorAll('.bar-fill').forEach(b=>b.style.width=b.dataset.w+'%');},50);
 }
 
-function renderCross(d, color) {
-  const { persons, catNames, crossMap, rows } = d;
-  const maxCell = Math.max(1, ...persons.flatMap(([p]) => catNames.map(c => crossMap[p]?.[c] || 0)));
-  let html = `<thead><tr><th class="lft">User</th>${catNames.map(c=>`<th>${c}</th>`).join('')}<th>Total</th></tr></thead><tbody>`;
-  persons.forEach(([p, tot]) => {
-    html += `<tr><td class="lft">${p}</td>`;
-    catNames.forEach(c => {
-      const v = crossMap[p]?.[c] || 0;
-      const a = v === 0 ? 0.04 : (0.08 + (v/maxCell)*0.55).toFixed(2);
-      const rgb = color.startsWith('#') ? hexToRgb(color) : '91,138,245';
-      html += `<td><span class="hcell" style="background:rgba(${rgb},${a})">${v}</span></td>`;
-    });
-    html += `<td>${tot}</td></tr>`;
+function renderCross(d,cr){
+  const {persons,cats,cross}=d,catNames=cats.map(c=>c[0]);
+  const maxCell=Math.max(1,...persons.flatMap(([p])=>catNames.map(c=>cross[p]?.[c]||0)));
+  let html=`<thead><tr><th class="lft">User</th>${catNames.map(c=>`<th>${c}</th>`).join('')}<th>Total</th></tr></thead><tbody>`;
+  persons.forEach(([p,tot])=>{
+    html+=`<tr><td class="lft">${p}</td>`;
+    catNames.forEach(c=>{const v=cross[p]?.[c]||0;const a=v===0?0.04:(0.08+(v/maxCell)*0.55).toFixed(2);html+=`<td><span class="hcell" style="background:rgba(${cr},${a})">${v}</span></td>`;});
+    html+=`<td>${tot}</td></tr>`;
   });
-  const totals = catNames.map(c => d.cats.find(x=>x[0]===c)?.[1] || 0);
-  html += `<tr><td class="lft">Total</td>${totals.map(t=>`<td>${t}</td>`).join('')}<td>${rows.length}</td></tr></tbody>`;
-  document.getElementById('cross-tbl').innerHTML = html;
+  html+=`<tr><td class="lft">Total</td>${catNames.map(c=>`<td>${cats.find(x=>x[0]===c)?.[1]||0}</td>`).join('')}<td>${persons.reduce((s,p)=>s+p[1],0)}</td></tr></tbody>`;
+  document.getElementById('ctbl').innerHTML=html;
 }
 
-function renderChart(d) {
-  if (chartInst) { chartInst.destroy(); chartInst = null; }
-  const labels = d.persons.map(p=>p[0]);
-  const values = d.persons.map(p=>p[1]);
-  const colors = labels.map((_,i)=>PALETTE[i%PALETTE.length]);
-  const h = Math.max(280, d.persons.length * 40 + 60);
-  document.getElementById('chart-wrap').style.height = h + 'px';
-  document.getElementById('chart-legend').innerHTML = labels.map((l,i)=>
-    `<div class="cl-item"><div class="cl-dot" style="background:${colors[i]}"></div>${l}</div>`).join('');
-  chartInst = new Chart(document.getElementById('main-chart'), {
-    type:'bar',
-    data:{ labels, datasets:[{ data:values, backgroundColor:colors, borderRadius:5, borderSkipped:false }] },
-    options:{
-      responsive:true, maintainAspectRatio:false, indexAxis:'y',
-      plugins:{ legend:{display:false}, tooltip:{callbacks:{label:ctx=>` ${ctx.parsed.x} utterances`}} },
-      scales:{
-        x:{ grid:{color:'rgba(255,255,255,0.04)'}, ticks:{color:'#5a6070'} },
-        y:{ grid:{display:false}, ticks:{color:'#8890a0',font:{size:12}} }
-      }
-    }
-  });
+function renderChart(d){
+  if(CI){CI.destroy();CI=null;}
+  const labels=d.persons.map(p=>p[0]),values=d.persons.map(p=>p[1]),colors=labels.map((_,i)=>PAL[i%PAL.length]);
+  const h=Math.max(280,d.persons.length*42+60);
+  document.getElementById('chart-wrap').style.height=h+'px';
+  document.getElementById('cl').innerHTML=labels.map((l,i)=>`<div class="cl-item"><div class="cl-dot" style="background:${colors[i]}"></div>${l}</div>`).join('');
+  CI=new Chart(document.getElementById('main-chart'),{type:'bar',
+    data:{labels,datasets:[{data:values,backgroundColor:colors,borderRadius:5,borderSkipped:false}]},
+    options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>` ${ctx.parsed.x} utterances`}}},
+      scales:{x:{grid:{color:'rgba(255,255,255,0.04)'},ticks:{color:'#5a6070'}},y:{grid:{display:false},ticks:{color:'#8890a0',font:{size:12}}}}}});
 }
 
-function renderStatus(d, key) {
-  const color = PROJECTS[key].color;
-  const total = d.rows.length;
-  document.getElementById('status-3').innerHTML = `
-    <div class="s3card done">
-      <div class="s3label">Done</div>
-      <div class="s3val" style="color:var(--green)">${d.done}</div>
-      <div class="s3sub">${total ? ((d.done/total)*100).toFixed(1) : 0}% of total</div>
-    </div>
-    <div class="s3card pending">
-      <div class="s3label">Pending</div>
-      <div class="s3val" style="color:var(--yellow)">${d.pending}</div>
-      <div class="s3sub">${total ? ((d.pending/total)*100).toFixed(1) : 0}% of total</div>
-    </div>
-    <div class="s3card other">
-      <div class="s3label">Other / blank</div>
-      <div class="s3val" style="color:var(--muted)">${d.other}</div>
-      <div class="s3sub">${total ? ((d.other/total)*100).toFixed(1) : 0}% of total</div>
-    </div>`;
-  const barsEl = document.getElementById('status-person-bars');
-  barsEl.innerHTML = d.persons.map(([p]) => {
-    const s = d.statusByPerson[p] || {done:0,pending:0,other:0,total:0};
-    const donePct  = s.total ? Math.round((s.done/s.total)*100) : 0;
-    const pendPct  = s.total ? Math.round((s.pending/s.total)*100) : 0;
-    return `<div class="bar-row" style="margin-bottom:10px">
-      <div class="bar-name" title="${p}">${p}</div>
+function renderStatus(d,key){
+  const total=d.rows?d.rows.length:d.persons.reduce((s,p)=>s+p[1],0);
+  const done=d.done||0,pending=d.pending||0,other=d.other!==undefined?d.other:total;
+  document.getElementById('s3').innerHTML=`
+    <div class="s3c done"><div class="s3label">Done</div><div class="s3val" style="color:var(--green)">${done}</div><div class="s3sub">${total?((done/total)*100).toFixed(1):0}%</div></div>
+    <div class="s3c pending"><div class="s3label">Pending</div><div class="s3val" style="color:var(--yellow)">${pending}</div><div class="s3sub">${total?((pending/total)*100).toFixed(1):0}%</div></div>
+    <div class="s3c other"><div class="s3label">Other / blank</div><div class="s3val" style="color:var(--muted)">${other}</div><div class="s3sub">${total?((other/total)*100).toFixed(1):0}%</div></div>`;
+  const sp=d.statusByPerson||{};
+  document.getElementById('status-bars').innerHTML=d.persons.map(([p,ptotal])=>{
+    const s=sp[p]||{done:0,pending:0,total:ptotal};
+    const dp=s.total?Math.round((s.done/s.total)*100):0,pp=s.total?Math.round((s.pending/s.total)*100):0;
+    return `<div class="bar-row" style="margin-bottom:10px"><div class="bar-name" title="${p}">${p}</div>
       <div style="flex:1;background:var(--bg3);border-radius:5px;height:18px;overflow:hidden;display:flex">
-        <div style="width:${donePct}%;background:#3ecf8e;height:100%;transition:width 0.7s ease"></div>
-        <div style="width:${pendPct}%;background:#f5c842;height:100%;transition:width 0.7s ease"></div>
-      </div>
-      <div class="bar-num">${s.done}/${s.total}</div>
-    </div>`;
+        <div style="width:${dp}%;background:#3ecf8e;height:100%;transition:width 0.8s ease"></div>
+        <div style="width:${pp}%;background:#f5c842;height:100%;transition:width 0.8s ease"></div>
+      </div><div class="bar-num">${s.done}/${s.total}</div></div>`;
   }).join('');
 }
 
-// ── UI HELPERS ──
-function switchProject(key, el) {
-  activeProject = key;
-  document.querySelectorAll('.proj-tab').forEach(t => t.classList.remove('active'));
+function switchProj(key,el){
+  AP=key;
+  document.querySelectorAll('.proj-tab').forEach(t=>t.classList.remove('active'));
   el.classList.add('active');
-  if (DATA[key]) renderDetail(key);
+  renderDetail(key);
 }
 
-function switchTab(name, btn) {
-  document.querySelectorAll('.panel').forEach(p => p.classList.remove('show'));
-  document.querySelectorAll('.sec-tab').forEach(b => b.classList.remove('active'));
+function switchTab(name,btn){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('show'));
+  document.querySelectorAll('.stab').forEach(b=>b.classList.remove('active','c-hindi','c-bengali'));
   document.getElementById('tab-'+name).classList.add('show');
-  if (btn) { btn.classList.add('active','hindi'); btn.classList.add(activeProject); }
+  if(btn){btn.classList.add('active','c-'+AP);}
 }
 
-function setStatus(msg, type='info') {
-  const bar = document.getElementById('status-bar');
-  document.getElementById('status-text').textContent = msg;
-  document.getElementById('spinner').style.display = type === 'info' ? 'block' : 'none';
-  bar.className = 'status-bar show' + (type === 'err' ? ' err' : type === 'ok' ? ' ok' : '');
+function setSbar(msg,type='info'){
+  const b=document.getElementById('sbar');
+  document.getElementById('sbar-txt').textContent=msg;
+  document.getElementById('spin').style.display=type==='info'?'block':'none';
+  b.className='sbar show'+(type==='err'?' err':type==='ok'?' ok':'');
 }
-function hideStatus() { document.getElementById('status-bar').className = 'status-bar'; }
+function hideBar(){document.getElementById('sbar').className='sbar';}
 
-function hexToRgb(hex) {
-  const r = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-  return r ? `${parseInt(r[1],16)},${parseInt(r[2],16)},${parseInt(r[3],16)}` : '91,138,245';
-}
-
-// ── BOOT ──
+// Boot — show static data instantly, then fetch live
+renderOverview();
+renderDetail('hindi');
 loadAll();
-// Auto-refresh every 5 minutes
-setInterval(loadAll, 5 * 60 * 1000);
+setInterval(loadAll,5*60*1000);
 </script>
 </body>
 </html>
